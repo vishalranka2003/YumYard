@@ -1,10 +1,11 @@
-import 'package:coffee/datamanager.dart';
-import 'package:coffee/pages/Navpage.dart';
-import 'package:coffee/pages/login_page.dart';
-import 'package:coffee/pages/main_page.dart';
-import 'package:coffee/pages/offers_page.dart';
-import 'package:coffee/pages/order_page.dart';
-import 'package:coffee/usermodel.dart';
+import 'package:YumYard/datamanager.dart';
+import 'package:YumYard/pages/Navpage.dart';
+import 'package:YumYard/pages/login_page.dart';
+import 'package:YumYard/pages/main_page.dart';
+import 'package:YumYard/pages/offers_page.dart';
+import 'package:YumYard/pages/order_page.dart';
+import 'package:YumYard/pages/userprofilepage.dart';
+import 'package:YumYard/usermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,11 +45,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Coffee Masters',
+      title: 'YumYard Masters',
       navigatorKey: navigatorKey,
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
       home: const AuthChecker(),
     );
   }
@@ -125,6 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
           dataManager: dataManager,
         );
         break;
+      case 3:
+        currentWidgetPage = ProfileScreen();
+        break;
     }
   }
 
@@ -132,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coffee App'),
+        title: const Text('Yumyard'),
       ),
       drawer: NavBar(),
       body: currentWidgetPage,
@@ -145,14 +146,18 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         backgroundColor: Theme.of(context).primaryColor,
-        selectedItemColor: Colors.amber.shade300,
-        unselectedItemColor: Colors.amber.shade50,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Color.fromARGB(255, 142, 188, 209),
         items: const [
-          BottomNavigationBarItem(label: "Menu", icon: Icon(Icons.coffee)),
+          BottomNavigationBarItem(
+              label: "Menu", icon: Icon(Icons.fastfood_outlined)),
           BottomNavigationBarItem(
               label: "Offers", icon: Icon(Icons.local_offer)),
           BottomNavigationBarItem(
-              label: "Order", icon: Icon(Icons.shopping_cart_checkout_outlined))
+              label: "Order",
+              icon: Icon(Icons.shopping_cart_checkout_outlined)),
+          BottomNavigationBarItem(
+              label: "Profile", icon: Icon(Icons.verified_user_rounded)),
         ],
       ),
     );

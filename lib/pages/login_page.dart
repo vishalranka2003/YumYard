@@ -1,11 +1,13 @@
 import 'dart:convert';
-import 'package:coffee/pages/signup_page.dart';
-import 'package:coffee/usermodel.dart';
+import 'package:YumYard/pages/signup_page.dart';
+import 'package:YumYard/pages/signup_page.dart';
+import 'package:YumYard/usermodel.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../usermodel.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class LoginPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
 
   Future<void> loginUser(BuildContext context) async {
-    const String apiUrl = 'http://localhost:8080/api/users/login';
+    const String apiUrl = 'http://52.66.240.46/api/users/login';
 
     final Map<String, String> data = {
       'username': usernameController.text,
@@ -111,7 +113,7 @@ class LoginPage extends StatelessWidget {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide.none),
-              fillColor: Colors.purple.withOpacity(0.1),
+              fillColor: Colors.blue.withOpacity(0.1),
               filled: true,
               prefixIcon: const Icon(Icons.person)),
         ),
@@ -123,7 +125,7 @@ class LoginPage extends StatelessWidget {
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(18),
                 borderSide: BorderSide.none),
-            fillColor: Colors.purple.withOpacity(0.1),
+            fillColor: Colors.blue.withOpacity(0.1),
             filled: true,
             prefixIcon: const Icon(Icons.password),
           ),
@@ -134,7 +136,7 @@ class LoginPage extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             padding: const EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: Colors.purple,
+            backgroundColor: Colors.blue,
           ),
           child: const Text(
             "Login",
@@ -172,7 +174,7 @@ class LoginPage extends StatelessWidget {
             },
             child: const Text(
               "Sign Up",
-              style: TextStyle(color: Colors.purple),
+              style: TextStyle(color: Colors.blue),
             ))
       ],
     );

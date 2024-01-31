@@ -26,9 +26,7 @@ app.use(express.static(path.resolve(__dirname, "dist")));
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
-app.use("/", (req, res) => {
-  res.send("Hi");
-});
+
 
 app.listen(PORT, () => {
   console.log("Your server is started at http://localhost:" + PORT);

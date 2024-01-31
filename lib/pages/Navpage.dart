@@ -1,8 +1,8 @@
-import 'package:coffee/main.dart';
-import 'package:coffee/pages/main_page.dart';
-import 'package:coffee/pages/order_page.dart';
+import 'package:YumYard/main.dart';
+import 'package:YumYard/pages/main_page.dart';
+import 'package:YumYard/pages/order_page.dart';
 import 'package:flutter/material.dart';
-import 'package:coffee/datamanager.dart';
+import 'package:YumYard/datamanager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

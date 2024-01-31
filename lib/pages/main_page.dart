@@ -1,11 +1,8 @@
-import 'package:coffee/datamanager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../datamanager.dart';
 import '../datamodel.dart';
 
-// ignore: camel_case_types
 class MenuPage extends StatelessWidget {
   final DataManager dataManager;
 
@@ -19,36 +16,13 @@ class MenuPage extends StatelessWidget {
         future: dataManager.getMenu(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  // EACH CATEGORY STARTS HERE
-                  var category = snapshot.data![index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 32.0, bottom: 8.0, left: 8.0),
-                        child: Text(
-                          category.name,
-                          style: TextStyle(color: Colors.brown.shade400),
-                        ),
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: category.products.length,
-                        itemBuilder: (context, index) {
-                          return MenuItem(
-                            product: category.products[index],
-                            onAdd: (p) => dataManager.cartAdd(p),
-                          );
-                        },
-                      )
-                    ],
-                  );
-                });
+            // Extracting category list from the snapshot
+            List<Category> categories = snapshot.data!;
+
+            return CategoryListView(
+              categories: categories,
+              dataManager: dataManager,
+            );
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
@@ -60,11 +34,83 @@ class MenuPage extends StatelessWidget {
   }
 }
 
+class CategoryListView extends StatefulWidget {
+  final List<Category> categories;
+  final DataManager dataManager;
+
+  const CategoryListView({
+    Key? key,
+    required this.categories,
+    required this.dataManager,
+  }) : super(key: key);
+
+  @override
+  _CategoryListViewState createState() => _CategoryListViewState();
+}
+
+class _CategoryListViewState extends State<CategoryListView> {
+  late Category selectedCategory;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the selectedCategory to the first category by default
+    selectedCategory = widget.categories.first;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Display buttons for each category at the top
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: widget.categories.map((category) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selectedCategory = category;
+                    });
+                  },
+                  child: Text(category.name),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+        // Display products for the selected category
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: selectedCategory.products.length,
+            itemBuilder: (context, index) {
+              return MenuItem(
+                product: selectedCategory.products[index],
+                onAdd: (p) => widget.dataManager.cartAdd(p),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class MenuItem extends StatelessWidget {
   final Product product;
   final Function onAdd;
-  const MenuItem({Key? key, required this.product, required this.onAdd})
-      : super(key: key);
+
+  const MenuItem({
+    Key? key,
+    required this.product,
+    required this.onAdd,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +137,11 @@ class MenuItem extends StatelessWidget {
                     ],
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        onAdd(product);
-                      },
-                      child: const Text("Add"))
+                    onPressed: () {
+                      onAdd(product);
+                    },
+                    child: const Text("Add"),
+                  ),
                 ],
               ),
             ),

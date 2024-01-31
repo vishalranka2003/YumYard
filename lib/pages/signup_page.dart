@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:coffee/pages/login_page.dart';
+import 'package:YumYard/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +25,7 @@ class SignupPage extends StatelessWidget {
       return;
     }
 
-    const String apiUrl = 'http://localhost:8080/api/users/signup';
+    const String apiUrl = 'http://52.66.240.46/api/users/signup';
 
     final Map<String, String> data = {
       'name': usernameController.text,
@@ -55,8 +55,7 @@ class SignupPage extends StatelessWidget {
 
         navigatorKey.currentState?.pushReplacement(
           MaterialPageRoute(
-            builder: (context) =>
-                const MyHomePage(title: 'Flutter Demo Home Page'),
+            builder: (context) => const MyHomePage(title: 'SignUp'),
           ),
         );
       } else {
@@ -126,7 +125,7 @@ class SignupPage extends StatelessWidget {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(18),
                                   borderSide: BorderSide.none),
-                              fillColor: Colors.purple.withOpacity(0.1),
+                              fillColor: Colors.blue.withOpacity(0.1),
                               filled: true,
                               prefixIcon: const Icon(Icons.person)),
                         ),
@@ -138,7 +137,7 @@ class SignupPage extends StatelessWidget {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(18),
                                   borderSide: BorderSide.none),
-                              fillColor: Colors.purple.withOpacity(0.1),
+                              fillColor: Colors.blue.withOpacity(0.1),
                               filled: true,
                               prefixIcon: const Icon(Icons.email)),
                         ),
@@ -150,7 +149,7 @@ class SignupPage extends StatelessWidget {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(18),
                                 borderSide: BorderSide.none),
-                            fillColor: Colors.purple.withOpacity(0.1),
+                            fillColor: Colors.blue.withOpacity(0.1),
                             filled: true,
                             prefixIcon: const Icon(Icons.password),
                           ),
@@ -164,7 +163,7 @@ class SignupPage extends StatelessWidget {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(18),
                                 borderSide: BorderSide.none),
-                            fillColor: Colors.purple.withOpacity(0.1),
+                            fillColor: Colors.blue.withOpacity(0.1),
                             filled: true,
                             prefixIcon: const Icon(Icons.password),
                           ),
@@ -179,7 +178,7 @@ class SignupPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder(),
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.purple,
+                          backgroundColor: Colors.blue,
                         ),
                         child: const Text(
                           "Sign up",
@@ -202,7 +201,7 @@ class SignupPage extends StatelessWidget {
                             },
                             child: const Text(
                               "Login",
-                              style: TextStyle(color: Colors.purple),
+                              style: TextStyle(color: Colors.blue),
                             ))
                       ],
                     )

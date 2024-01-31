@@ -9,7 +9,7 @@ class DataManager {
 
   fetchMenu() async {
     try {
-      const url = 'https://prajwaldppd.github.io/Food_app_api/api/menu.json';
+      const url = 'https://shreyadr09.github.io/Food_app_api/api/menu.json';
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
@@ -61,5 +61,16 @@ class DataManager {
       sum += item.quantity * item.product.price;
     }
     return sum;
+  }
+
+  int getQuantityInCart(Product product) {
+    int quantity = 0;
+    for (var item in cart) {
+      if (item.product.id == product.id) {
+        quantity = item.quantity;
+        break;
+      }
+    }
+    return quantity;
   }
 }
