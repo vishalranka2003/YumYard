@@ -5,6 +5,7 @@ import 'package:YumYard/pages/main_page.dart';
 import 'package:YumYard/pages/offers_page.dart';
 import 'package:YumYard/pages/order_page.dart';
 import 'package:YumYard/pages/userprofilepage.dart';
+import 'package:YumYard/repository/platform_repository.dart';
 import 'package:YumYard/usermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'YumYard Masters',
+      title: 'YumYard',
       navigatorKey: navigatorKey,
       home: const AuthChecker(),
     );
@@ -96,6 +97,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _repository = PlatformRepository();
+  String colorResult = "0xFFE0E0E0";
+  changeColor(String color) async {
+    colorResult = await _repository.changeColor(color);
+    return colorResult;
+  }
+
   var selectedIndex = 0;
   // Add your DataManager class here
   var dataManager = DataManager();
@@ -132,10 +140,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(int.parse(colorResult)),
       appBar: AppBar(
-        title: const Text('Yumyard'),
+        // title: Image.asset('assets/YUMYARD.png', width: 150.0, height: 30.0),
+        title: Image.asset(
+          'assets/main_logo.png',
+          width: 150.0,
+        ),
       ),
-      drawer: NavBar(),
+      // drawer: NavBar(),
       body: currentWidgetPage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,

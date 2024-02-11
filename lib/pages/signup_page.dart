@@ -25,7 +25,7 @@ class SignupPage extends StatelessWidget {
       return;
     }
 
-    const String apiUrl = 'http://52.66.240.46/api/users/signup';
+    const String apiUrl = 'http://localhost:5000/api/users/signup';
 
     final Map<String, String> data = {
       'name': usernameController.text,

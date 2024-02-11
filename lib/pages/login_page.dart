@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
 
   Future<void> loginUser(BuildContext context) async {
-    const String apiUrl = 'http://52.66.240.46/api/users/login';
+    const String apiUrl = 'http://localhost:5000/api/users/login';
 
     final Map<String, String> data = {
       'username': usernameController.text,

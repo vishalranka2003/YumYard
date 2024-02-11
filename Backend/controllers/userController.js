@@ -21,10 +21,15 @@ const getUserProfile = async (req, res) => {
     console.log("Error in UpdateUser: ", err.message);
   }
 };
-
 const signUpUser = async (req, res) => {
   try {
     const { name, email, username, password } = req.body;
+
+    // Check if password is empty or contains only whitespace
+    if (!password.trim()) {
+      return res.status(400).json({ error: "Password cannot be empty" });
+    }
+
     const user = await User.findOne({ $or: [{ email }, { username }] });
 
     if (user) {
@@ -40,6 +45,7 @@ const signUpUser = async (req, res) => {
       )} already exists`;
       return res.status(400).json({ error: errorMessage });
     }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
@@ -48,6 +54,7 @@ const signUpUser = async (req, res) => {
       username,
       password: hashedPassword,
     });
+
     await newUser.save();
 
     if (newUser) {
@@ -57,7 +64,7 @@ const signUpUser = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         username: newUser.username,
-        profilePic: newUser.profilePic, 
+        profilePic: newUser.profilePic,
         // followers: newUser.followers,
         // following: newUser.following,
         bio: newUser.bio,
@@ -65,7 +72,7 @@ const signUpUser = async (req, res) => {
         createdAt: newUser.createdAt,
       });
     } else {
-      res.status(400).json({ error: "Invalid User daetails" });
+      res.status(400).json({ error: "Invalid User details" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
