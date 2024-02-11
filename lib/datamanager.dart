@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+
 import 'datamodel.dart';
 import 'package:http/http.dart' as http;
 import './pages/order_page.dart';
@@ -33,8 +35,7 @@ class DataManager {
     return _menu!;
   }
 
-  cartAdd(Product p) {
-    print("Item added>..");
+  void cartAdd(Product p, BuildContext context) {
     bool found = false;
     for (var item in cart) {
       if (item.product.id == p.id) {
@@ -44,7 +45,17 @@ class DataManager {
     }
     if (!found) {
       cart.add(ItemInCart(product: p, quantity: 1));
+      showSnackbar(p.name, context);
     }
+  }
+
+  void showSnackbar(String productName, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$productName added to the cart'),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   cartRemove(Product p) {

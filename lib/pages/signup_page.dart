@@ -25,7 +25,7 @@ class SignupPage extends StatelessWidget {
       return;
     }
 
-    const String apiUrl = 'http://localhost:5000/api/users/signup';
+    const String apiUrl = 'https://discussync.onrender.com/api/users/signup';
 
     final Map<String, String> data = {
       'name': usernameController.text,
@@ -69,7 +69,7 @@ class SignupPage extends StatelessWidget {
     } catch (error) {
       print('Error: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error occurred. Please try again.')),
+        SnackBar(content: Text(error.toString())),
       );
     }
   }

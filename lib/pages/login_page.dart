@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'package:YumYard/pages/signup_page.dart';
-import 'package:YumYard/pages/signup_page.dart';
 import 'package:YumYard/usermodel.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
-import '../usermodel.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -16,7 +14,7 @@ class LoginPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
 
   Future<void> loginUser(BuildContext context) async {
-    const String apiUrl = 'http://localhost:5000/api/users/login';
+    const String apiUrl = 'https://discussync.onrender.com/api/users/login';
 
     final Map<String, String> data = {
       'username': usernameController.text,
@@ -58,7 +56,7 @@ class LoginPage extends StatelessWidget {
       print('Error: $error');
       // Show SnackBar directly without checking for descendant Scaffolds
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error occurred. Please try again.')),
+        SnackBar(content: Text(error.toString())),
       );
     }
   }

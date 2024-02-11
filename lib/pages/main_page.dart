@@ -92,7 +92,7 @@ class _CategoryListViewState extends State<CategoryListView> {
             itemBuilder: (context, index) {
               return MenuItem(
                 product: selectedCategory.products[index],
-                onAdd: (p) => widget.dataManager.cartAdd(p),
+                onAdd: (p) => widget.dataManager.cartAdd(p,context),
               );
             },
           ),
