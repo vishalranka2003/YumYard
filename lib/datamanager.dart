@@ -53,7 +53,7 @@ class DataManager {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('$productName added to the cart'),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }

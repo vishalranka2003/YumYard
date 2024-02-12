@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
         final token = jsonDecode(response.body)['_id'];
         await saveTokenToCache(token);
         context.read<AuthProvider>().setUserData(userData);
-        // context.read<AuthProvider>().setAuthenticated(true);
+        context.read<AuthProvider>().setAuthenticated(true);
         navigatorKey.currentState?.pushReplacement(
           MaterialPageRoute(
             builder: (context) =>
@@ -53,7 +53,6 @@ class LoginPage extends StatelessWidget {
         );
       }
     } catch (error) {
-      print('Error: $error');
       // Show SnackBar directly without checking for descendant Scaffolds
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(error.toString())),
